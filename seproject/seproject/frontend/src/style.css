@@ -1,0 +1,129 @@
+/* Global styles for the frontend: colorful theme + glassmorphism */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+:root {
+  /* vibrant theme */
+  --bg-image: url('https://images.unsplash.com/photo-1503264116251-35a269479413?auto=format&fit=crop&w=1950&q=80');
+  --glass-bg: rgba(255,255,255,0.06);
+  --glass-border: rgba(255,255,255,0.10);
+  --accent-1: #ff7a59; /* coral/orange */
+  --accent-2: #6b5bff; /* vibrant violet */
+  --accent-3: #00c9a7; /* teal */
+  --muted: rgba(255,255,255,0.95);
+}
+
+* { box-sizing: border-box; }
+html, body, #root { height: 100%; }
+
+body {
+  margin: 0;
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+  color: var(--muted);
+  background-image: linear-gradient(rgba(12,12,20,0.22), rgba(6,6,12,0.45)), var(--bg-image);
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: flex;
+  flex-direction: column;
+  transition: background 300ms ease;
+}
+
+/* colorful floating blobs to add depth */
+body::before,
+body::after {
+  content: '';
+  position: fixed;
+  width: 60vmax; height: 60vmax;
+  top: -20vmax; right: -25vmax;
+  background: radial-gradient(circle at 30% 30%, rgba(255,122,89,0.16), transparent 30%), radial-gradient(circle at 70% 70%, rgba(107,91,255,0.12), transparent 30%);
+  filter: blur(60px);
+  transform: translateZ(0);
+  pointer-events: none;
+  z-index: 0;
+  animation: floatX 12s linear infinite;
+}
+body::after { left: -25vmax; top: 40vmax; right: auto; transform: translateZ(0) rotate(90deg); animation-duration: 16s; }
+@keyframes floatX { from { transform: translateY(0) } to { transform: translateY(6vmin) } }
+
+#root { width: 100%; position: relative; z-index: 1; }
+
+.app-container { min-height: 100vh; display: flex; flex-direction: column; }
+
+/* Navbar + header */
+.navbar {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 0.75rem 1.25rem; background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border-bottom: 1px solid rgba(255,255,255,0.03); backdrop-filter: blur(6px); z-index: 2;
+}
+.brand { font-size: 1.15rem; font-weight: 800; color: var(--muted); text-decoration: none; background: linear-gradient(90deg, var(--accent-1), var(--accent-2)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.nav-right { display: flex; gap: 0.8rem; align-items: center; }
+.nav-link { color: var(--muted); text-decoration: none; font-weight: 700; }
+
+.content { flex: 1; display: flex; align-items: center; justify-content: center; padding: 2.5rem 1rem; }
+
+/* Glass card used by auth and other centered UI */
+.auth-card, .glass-card {
+  width: 100%; max-width: 540px; background: var(--glass-bg); border: 1px solid var(--glass-border);
+  backdrop-filter: blur(10px) saturate(120%); -webkit-backdrop-filter: blur(10px) saturate(120%);
+  border-radius: 14px; padding: 2rem; box-shadow: 0 14px 40px rgba(2,6,23,0.45); position: relative; z-index: 2;
+}
+.auth-card h2 { margin: 0 0 0.8rem 0; font-size: 1.5rem; }
+
+.auth-input, input, select, textarea { width: 100%; padding: 0.78rem 1rem; border-radius: 10px; border: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.03); color: #fff; font-size: 1rem; margin-bottom: 0.9rem; }
+.auth-input::placeholder { color: rgba(255,255,255,0.55); }
+.auth-input:focus { outline: none; box-shadow: 0 10px 30px rgba(107,91,255,0.08); border-color: rgba(107,91,255,0.45); }
+
+.btn, button, .btn-logout { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.8rem 1.2rem; border-radius: 10px; border: none; cursor: pointer; font-weight: 700; color: #fff; background: linear-gradient(90deg, var(--accent-1), var(--accent-2)); transition: transform 160ms ease, box-shadow 160ms ease; }
+.btn:hover, .btn-logout:hover { transform: translateY(-3px); box-shadow: 0 18px 40px rgba(107,91,255,0.14); }
+
+.popup { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; z-index: 9999; background: rgba(2,6,23,0.45); }
+.popup-content { background: rgba(8,10,15,0.92); padding: 1.2rem 1.6rem; border-radius: 12px; color: #fff; }
+
+/* small responsive tweaks */
+@media (max-width: 640px) { .auth-card { padding: 1.2rem; border-radius: 12px; } .btn { width: 100%; } }
+
+/* Home / role cards */
+.home-title { font-size: 2rem; margin-bottom: 0.25rem; font-weight: 800; letter-spacing: 0.6px; }
+.home-sub { color: rgba(255,255,255,0.95); margin-bottom: 1.25rem; font-weight: 600; }
+.role-buttons { display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; }
+.role-card { min-width: 220px; min-height: 160px; border-radius: 18px; padding: 1.6rem; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; transition: transform 180ms ease, box-shadow 180ms ease; font-weight: 800; text-align: center; color: #07235b; }
+.role-card:hover { transform: translateY(-6px); box-shadow: 0 22px 60px rgba(2,6,23,0.38); }
+.role-emoji { font-size: 44px; margin-bottom: 0.6rem; }
+.role-title { font-size: 1.15rem; margin-bottom: 0.35rem; }
+.role-sub { font-size: 0.92rem; opacity: 0.95; }
+.role-patient { background: linear-gradient(135deg, #ffecd2 0%, #ff7a59 100%); color: #3b1f00; }
+.role-doctor { background: linear-gradient(135deg, #d6fcf7 0%, #00c9a7 100%); color: #063a2b; }
+
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+#app {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.vanilla:hover {
+  filter: drop-shadow(0 0 2em #3178c6aa);
+}
+
+.card {
+  padding: 2em;
+}
+
+/* Removed Vite default .read-the-docs and button styles to avoid conflicts. */

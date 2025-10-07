@@ -1,0 +1,43 @@
+/* App-level styles (component-level only). Global background handled in style.css */
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1.25rem;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.015));
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+  backdrop-filter: blur(6px);
+}
+
+.brand {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--muted, #fff);
+  text-decoration: none;
+  transition: color 0.25s ease, transform 0.15s ease;
+}
+.brand:hover { color: var(--accent-1, #a78bfa); transform: translateY(-1px); }
+
+.nav-right { display: flex; align-items: center; gap: 0.8rem; }
+.nav-link { color: var(--muted, #fff); text-decoration: none; font-weight: 600; }
+.nav-link:hover { color: var(--accent-2, #7c3aed); }
+
+.welcome { font-size: 0.98rem; margin-right: 0.5rem; color: rgba(255,255,255,0.9); }
+
+.btn-logout { padding: 0.55rem 1rem; border-radius: 10px; font-weight: 700; color: #fff; background: linear-gradient(90deg,var(--accent-1,#6d28d9),var(--accent-2,#7c3aed)); border: none; cursor: pointer; }
+.btn-logout:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(99,102,241,0.12); }
+
+.content { flex: 1; display: flex; align-items: center; justify-content: center; padding: 2rem 1rem; }
+
+/* small responsive tweaks */
+@media (max-width: 640px) {
+  .navbar { padding: 0.6rem 0.8rem; }
+  .brand { font-size: 1rem; }
+}
